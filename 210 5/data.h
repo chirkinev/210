@@ -13,7 +13,7 @@
 #include <string>
 
 template<typename T>
-void printx(const T& p)
+void printx(const T& p) 
 {
 	std::cout << p << " ; ";
 }
@@ -28,10 +28,18 @@ void print2(const C& data) {
 	std::cout << std::endl;
 }
 
-template <typename C >
-void changePointTo(C& data, const MyPoint& p) {
-	for_each(begin(data), end(data), [&](typename C::value_type &element) 
-		{ element =p; });
+template<typename T>
+class setel {
+	const typename T e;
+public:
+	setel(const typename T ini) :e(ini) {};
+
+	void operator()(typename T& val) { val = e; };
+};
+
+template <typename C, typename T >
+void changePointTo(C& data, const T p) {
+	for_each(begin(data), end(data), setel<typename C::value_type>(p)/*[&](typename C::value_type &element) { element =p; }*/);
 }
 
 
@@ -46,67 +54,67 @@ void print(const C& data) {
 }
 
 
-template <typename C>
-void print(const C& data,const typename C::const_iterator b,const typename C::const_iterator e) {
-	for (typename C::const_iterator it = b; it != e; ) {
-		std::cout << *it /*<< " ;--- "*/;
-		++it;
-	}
-	std::cout << std::endl;
-}
+//template <typename C>
+//void print(const C& data,const typename C::const_iterator b,const typename C::const_iterator e) {
+//	for (typename C::const_iterator it = b; it != e; ) {
+//		std::cout << *it /*<< " ;--- "*/;
+//		++it;
+//	}
+//	std::cout << std::endl;
+//}
 
-template <typename C>
-void print(const std::stack<C>& data) {
+//template <typename C>
+//void print(const std::stack<C>& data) {
+//
+//	std::stack<C> tmp2(data);
+//	std::stack<C> tmp;
+//	size_t d = data.size();
+//	for (size_t i = 0; i < d; i++)
+//	{	
+//		tmp.push(tmp2.top());
+//		tmp2.pop();
+//	}
+//	
+//	for (size_t i = 0; i < d; i++)
+//	{
+//		std::cout << tmp.top() << " ; ";
+//		tmp.pop();
+//	}
+//	
+//	std::cout << std::endl;
+//}
 
-	std::stack<C> tmp2(data);
-	std::stack<C> tmp;
-	size_t d = data.size();
-	for (size_t i = 0; i < d; i++)
-	{	
-		tmp.push(tmp2.top());
-		tmp2.pop();
-	}
-	
-	for (size_t i = 0; i < d; i++)
-	{
-		std::cout << tmp.top() << " ; ";
-		tmp.pop();
-	}
-	
-	std::cout << std::endl;
-}
+//template <typename C,typename D>
+//void print(const std::queue<C, D>& data) {
+//
+//	std::queue<C,D> tmp(data);
+//	
+//	size_t d = data.size();
+//
+//	for (size_t i = 0; i < d; i++)
+//	{
+//		std::cout << tmp.front() << " ; ";
+//		tmp.pop();
+//	}
+//
+//	std::cout << std::endl;
+//}
 
-template <typename C,typename D>
-void print(const std::queue<C, D>& data) {
-
-	std::queue<C,D> tmp(data);
-	
-	size_t d = data.size();
-
-	for (size_t i = 0; i < d; i++)
-	{
-		std::cout << tmp.front() << " ; ";
-		tmp.pop();
-	}
-
-	std::cout << std::endl;
-}
-
-template <typename C, typename D>
-void print(const std::priority_queue<C, D>& data) {
-
-	std::priority_queue<C, D> tmp(data);
-
-	size_t d = data.size();
-
-	for (size_t i = 0; i < d; i++)
-	{
-		std::cout << tmp.top() << " ; ";
-		tmp.pop();
-	}
-
-	std::cout << std::endl;
-}
+//template <typename C, typename D>
+//void print(const std::priority_queue<C, D>& data) {
+//
+//	std::priority_queue<C, D> tmp(data);
+//
+//	size_t d = data.size();
+//
+//	for (size_t i = 0; i < d; i++)
+//	{
+//		std::cout << tmp.top() << " ; ";
+//		tmp.pop();
+//	}
+//
+//	std::cout << std::endl;
+//}
 
 //template <typename C, typename D>
 //void print(const std::list<C, D>& data) {
@@ -126,35 +134,35 @@ void print(const std::priority_queue<C, D>& data) {
 
 
 
-template <typename C>
-std::ostream& operator<<(std::ostream& os, const std::set<C>& p)
-{
-	using namespace std;
-	os << std::endl;
-	for (typename set<C>::const_iterator it = begin(p); it != end(p); ) {
-		os << *it << " ; ";
-		++it;
-	}
-	os << std::endl;
+//template <typename C>
+//std::ostream& operator<<(std::ostream& os, const std::set<C>& p)
+//{
+//	using namespace std;
+//	os << std::endl;
+//	for (typename set<C>::const_iterator it = begin(p); it != end(p); ) {
+//		os << *it << " ; ";
+//		++it;
+//	}
+//	os << std::endl;
+//
+//	
+//	return os;
+//}
 
-	
-	return os;
-}
-
-template <typename C>
-std::ostream& operator<<(std::ostream& os, const std::multiset<C>& p)
-{
-	using namespace std;
-	os << std::endl;
-	for (typename set<C>::const_iterator it = begin(p); it != end(p); ) {
-		os << *it << " ; ";
-		++it;
-	}
-	os << std::endl;
-
-
-	return os;
-}
+//template <typename C>
+//std::ostream& operator<<(std::ostream& os, const std::multiset<C>& p)
+//{
+//	using namespace std;
+//	os << std::endl;
+//	for (typename set<C>::const_iterator it = begin(p); it != end(p); ) {
+//		os << *it << " ; ";
+//		++it;
+//	}
+//	os << std::endl;
+//
+//
+//	return os;
+//}
 template <typename C, typename D>
 std::ostream& operator<<(std::ostream& os, const std::pair<C, D>& p)
 {
