@@ -10,6 +10,7 @@
 #include <clocale>
 #include <algorithm>
 #include "MyPoint2.h"
+#include <string>
 
 template<typename T>
 void printx(const T& p)
@@ -38,7 +39,7 @@ void changePointTo(C& data, const MyPoint& p) {
 template <typename C>
 void print(const C& data) {
 	for (typename C::const_iterator it = begin(data); it != end(data); ) {
-		std::cout << *it /*<< " ;--- "*/;
+		std::cout << *it << " ;";
 		++it;
 	}
 	std::cout << std::endl;
@@ -107,21 +108,21 @@ void print(const std::priority_queue<C, D>& data) {
 	std::cout << std::endl;
 }
 
-template <typename C, typename D>
-void print(const std::list<C, D>& data) {
-
-	std::list<C, D> tmp(data);
-
-	size_t d = data.size();
-
-	for (size_t i = 0; i < d; i++)
-	{
-		std::cout << *tmp.top() << " ; ";
-		tmp.pop();
-	}
-
-	std::cout << std::endl;
-}
+//template <typename C, typename D>
+//void print(const std::list<C, D>& data) {
+//
+//	std::list<C, D> tmp(data);
+//
+//	size_t d = data.size();
+//
+//	for (size_t i = 0; i < d; i++)
+//	{
+//		std::cout << *(tmp.back()) << " ; ";
+//		tmp.pop();
+//	}
+//
+//	std::cout << std::endl;
+//}
 
 
 
@@ -157,7 +158,7 @@ std::ostream& operator<<(std::ostream& os, const std::multiset<C>& p)
 template <typename C, typename D>
 std::ostream& operator<<(std::ostream& os, const std::pair<C, D>& p)
 {
-	os << p.first << " : " << p.second << "\n";
+	os << p.first << " : " << p.second /*<< "\n"*/;
 	return os;
 }
 
@@ -169,11 +170,44 @@ class interv {
 	int m;
 public:
 	interv(int ni, int mi) :n(ni), m(mi) {};
-	bool operator() (MyPoint p) {
+	bool operator() (const MyPoint& p) const {
 		if ((p.getx() >= (-n)) &&
 			(p.getx() <= m) && 
 			(p.gety() >= (-n)) &&
 			(p.gety() <= m)) return true;
 		return false;
+	}
+};
+char chToLo(unsigned char c);
+
+std::string strToLo(const std::string& sS);
+
+class  strFirstLeter {
+	char chr;
+public:
+	strFirstLeter(const char in) :chr(in) {};
+
+	bool operator() (const std::string& st) const {
+		if (st.size() == 0)return false;// надеемся, что чар нам дадут сразу корректный и в нижнем регистре, 
+										// а сринг не надеемся ни на то
+		if (std::tolower(st[0]) == chr) return true;
+		return false;
+
+	}
+
+};
+
+class saveNechet_retTrueIfChet {
+	std::multimap<std::string, int>* nechet;
+public:
+	saveNechet_retTrueIfChet(std::multimap < std::string, int>& nc) :nechet(&nc) {};
+
+	bool operator() (const std::pair<std::string, int>& par) const {
+		//int tmp = par.second();
+		if (par.second % 2) return true;
+		nechet->insert(par);
+		return false;
+
+
 	}
 };

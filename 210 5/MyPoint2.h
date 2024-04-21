@@ -23,8 +23,8 @@ public:
 	{
 		return (x == p.x && y == p.y);
 	}
-	int getx() { return x; };
-	int gety() { return y; };
+	int getx() const { return x; };
+	int gety() const { return y; };
 	static bool otr(MyPoint& p) { return(p.x < 0) || (p.y < 0); }
 	friend std::ostream& operator<<(std::ostream& os, const MyPoint& p);
 	friend std::ostream& operator<<(std::ostream& os, const MyPoint* p);// почему const MyPoint*& p не катит?

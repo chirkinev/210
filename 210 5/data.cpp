@@ -18,3 +18,18 @@ bool zamuzh(std::map<const char*, int>& mP, const char* oldf, const char* newf)
     return true;
 }
 
+ char chToLo(unsigned char c)
+{
+    return std::tolower(c);
+}
+ 
+
+std::string strToLo(const std::string& sS)
+{
+    std::string retS(sS.size(),' ');
+    std::transform(sS.begin(), sS.end(), retS.begin(), chToLo);
+    return retS;
+}
+
+
+

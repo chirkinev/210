@@ -39,7 +39,7 @@ Rect& Rect::operator=(const Rect& r)
 {
     m_left = r.m_left;
     m_right = r.m_right;
-    m_top = m_top;
+    m_top = r.m_top;
     m_bottom = r.m_bottom;
     Shape::operator=(r);
     return *this;

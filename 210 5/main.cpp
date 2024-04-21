@@ -206,12 +206,22 @@ int _tmain(int argc, _TCHAR* argv[])
 		//содержимое объекта string в нижний регистр.
 		//Подсказка: класс string - это "почти" контейнер, поэтому для него
 		// определены методы begin() и end()
-
-
+			string sS = "VgjjGJklJJHghKolktGjHTJK";
+			std::cout << "---- srt to lo ---------------\n\n";
+			std::cout << sS<<"\n\n";
+			sS=strToLo(sS);
+			std::cout << sS << "\n";
 		//Заполните list объектами string. С помощью алгоритма transform сформируте
 		//значения "пустого" set, конвертируя строки в нижний регистр
 
-
+			std::list<string> lS = { "ffDHBHFDFf","faDRGGGHs","yjDGFr","rLHFgaw","rFFKwegq","FFGHG24fa" };
+			std::set<string> setS;
+			std::cout << "---- print list ---------------\n\n";
+			print(lS);
+			//insert_iterator<set<string>> ssi = std::inserter(setS, setS.begin());
+			transform(lS.begin(), lS.end(), std::inserter(setS, setS.begin()) , strToLo);
+			std::cout << "---- transformed set ---------------\n\n";
+			print(setS);
 
 
 		stop
@@ -221,9 +231,15 @@ int _tmain(int argc, _TCHAR* argv[])
 		//Дан вектор с элементами типа string. С помощью copy_if() требуется
 		//вывести сначала строки, начинающиеся с буквы "А" или "а", затем с "Б"...
 		//При этом порядок строк в исходном векторе менять не нужно!
+		std::list<string> lS = { "A123","B123","agfd","fgik","hkgsd","Hisf" ,"f123","a0765"};
+		std::list<string> lS2;
+		std::cout << "---- transform string at first letter ---------------\n\n";
 
+		for (char ch = 'a'; ch <= 'z'; ch++)
+			copy_if(lS.begin(), lS.end(), std::inserter(lS2,lS2.end()), strFirstLeter(ch));
 
-
+		print(lS);
+		print(lS2);
 		stop
 
 			//Дан multimap, содержаций пары: "месяц - количество денй в месяце"
