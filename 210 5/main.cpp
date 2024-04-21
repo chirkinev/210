@@ -232,8 +232,16 @@ int _tmain(int argc, _TCHAR* argv[])
 			std::multimap<string, int> month{
 				{"January", 31}, {"February", 28}, {"February", 29}, { "March", 31},
 				{"April", 30}, {"May",31}, {"June", 30}, {"July", 31}, {"August",31},
-				{"September",30}, {"October", 31}, {"November",30}, {"December",31}
-		};
+				{"September",30}, {"October", 31}, {"November",30}, {"December",31}},
+				chet,nechet;
+
+		std::cout << "---- find chet/nechet month ---------------\n\n";
+
+			copy_if(month.begin(), month.end(), std::inserter(chet,chet.end()), saveNechet_retTrueIfChet(nechet));
+
+			print(chet);
+			print(nechet);
+		
 
 
 
